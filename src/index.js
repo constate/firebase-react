@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App';
 
 // fbase 불러오기 테스트
-import firebase from './fbase';
-console.log(firebase);
+// import firebase from './fbase';
+// console.log(firebase);
 
 ReactDOM.render(<App />, document.getElementById('root'));
