@@ -7,14 +7,14 @@ import Auth from 'routes/Auth';
 import EditProfile from 'routes/EditProfile';
 import Nav from 'components/Nav';
 
-export default function AppRouter({isLoggedIn, setIsLoggedIn}) {
+export default function AppRouter({isLoggedIn, userObj}) {
   return (
     <Router>
-      <Nav />
+      <Nav isLoggedIn={isLoggedIn} />
       <Routes>
         {isLoggedIn ? (
           <>
-            <Route exact path='/' element={<Home />} />
+            <Route exact path='/' element={<Home userObj={userObj} />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/edit' element={<EditProfile />} />
           </>

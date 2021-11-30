@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { authService, firebaseInstance } from 'fbase';
+import { useDebugValue, useState } from 'react';
+import { authService, dbService, firebaseInstance } from 'fbase';
 
 
 export default function Auth() {
+  // ES6 구조 분해
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,7 +15,7 @@ export default function Auth() {
     } = event;
 
     if (name === 'email') {
-      setEmail(value);
+      setEmail(useDebugValue);
     } else if (name === 'password') {
       setPassword(value);
     }
@@ -23,13 +24,13 @@ export default function Auth() {
   const onSubmit = async(event) => {
     // 주소가 갱신되는걸 막아줌
     event.preventDefault();
+    let data;
     try {
-      let data;
       if (event.target.id === 'loginForm') {
         // 흐름제어(promise, async)
         data = await authService.signInWithEmailAndPassword(email, password);
       } else if (event.target.id === 'joinUsForm') {
-        data = await authService.createUserWithEmailAndPassword(email, password);
+        data = await authService.createUserWithEmailAndPassword(email, password);  
       }
       // 저장 결과 data
       console.log(data);
@@ -60,8 +61,8 @@ export default function Auth() {
       <p style={{ color: 'red' }}>{error}</p>
       <h4>Login</h4>
       <form id="loginForm" onSubmit={onSubmit}>
-        <input type="email" name="email" value={email} onChange={onChange} />
-        <input type="password" name="password" value={password} onChange={onChange}/>
+        <input type="email" name="email" onChange={onChange} />
+        <input type="password" name="password" onChange={onChange}/>
 
         <input type="submit" value="Log in" onChange={onChange}/>
       </form>
